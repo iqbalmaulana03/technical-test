@@ -1,0 +1,41 @@
+version: "3.8"
+volumes:
+  contentmanagement-volume:
+networks:
+  contentmanagement-network:
+
+services:
+  db:
+    container_name: contentmanagement-db
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_USERNAME=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=content_management_system
+    ports:
+      - "5432:5432"
+    volumes:
+      - contentmanagement-volume:/var/lib/postgresql/data
+    networks:
+      - contentmanagement-network
+
+  backend:
+    container_name: contentmanagement-api
+    # Diambil dari Dockerfile
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION_IN_SECOND=${JWT_EXPIRATION_IN_SECOND}
+      - DIRECTORY_PATH=${DIRECTORY_PATH}
+    networks:
+      - contentmanagement-network

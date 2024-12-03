@@ -1,0 +1,4 @@
+package com.iqbal.sekawan.technical_test.service;
+
+public interface IUserService {
+}

@@ -1,0 +1,16 @@
+package com.iqbal.sekawan.technical_test.service.impl;
+
+import com.iqbal.sekawan.technical_test.model.Roles;
+import com.iqbal.sekawan.technical_test.service.IRoleService;
+import com.iqbal.sekawan.technical_test.statval.ERole;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@RequiredArgsConstructor
+@Service
+public class RoleServiceImpl implements IRoleService {
+    @Override
+    public Roles getOrSave(ERole role) {
+        return null;
+    }
+}
